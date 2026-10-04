@@ -123,8 +123,11 @@ static void ds_timer_callback(struct timer_list *t)
         switch (ds_data.active_fault) {
         case DS_FAULT_OVERHEAT:
             /* Temp climbs toward 118 deg C */
-            if (ds_data.engine_temp_c < 118)
-                ds_data.engine_temp_c += 2;
+            if (ds_data.engine_temp_c < 95) {
+                ds_data.engine_temp_c += 6;
+            } else if (ds_data.engine_temp_c < 118) {
+                ds_data.engine_temp_c += 3;
+            }
             break;
 
         case DS_FAULT_LOW_FUEL:
