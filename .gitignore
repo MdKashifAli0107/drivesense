@@ -18,3 +18,4 @@ cmake-build-*/
 *~
 *.log
 drivesense_alerts.log
+DriveSense_Build_Plan.md
