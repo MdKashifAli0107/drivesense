@@ -1,0 +1,20 @@
+@startuml
+[*] --> IDLE : Module Load
+
+IDLE --> DRIVING : DS_IOC_START / 'S'
+DRIVING --> IDLE : DS_IOC_STOP / 'P'
+
+IDLE --> FAULT : DS_IOC_INJECT_FAULT / '1','2','3','4'
+DRIVING --> FAULT : DS_IOC_INJECT_FAULT / '1','2','3','4'
+
+state FAULT {
+    state "OVERHEAT (>105°C)" as Overheat
+    state "LOW_FUEL (<10%)" as LowFuel
+    state "FLAT_TYRE (<26 PSI)" as FlatTyre
+    state "OVERSPEED (>120 km/h)" as Overspeed
+}
+
+FAULT --> IDLE : DS_IOC_RESET / 'R'
+DRIVING --> IDLE : DS_IOC_RESET / 'R'
+IDLE --> IDLE : DS_IOC_RESET / 'R'
+@enduml

@@ -1,0 +1,52 @@
+@startuml
+autonumber
+actor User
+participant "App Main Thread" as App
+participant "SensorDevice" as Dev
+participant "/dev/drivesense" as VFS
+participant "Kernel Driver" as Driver
+participant "Reader Thread" as Worker
+participant "AlertManager" as Mgr
+participant "Logger" as Log
+participant "Dashboard" as UI
+
+User -> App : Launch drivesense_app
+App -> Dev : open("/dev/drivesense")
+Dev -> VFS : open syscall
+VFS -> Driver : drivesense_open()
+Driver --> Dev : fd handle
+App -> UI : init() (ncurses)
+App -> Worker : Spawn thread
+
+loop Ingestion Loop (250-500 ms)
+    Worker -> Dev : read()
+    Dev -> VFS : read(fd, buffer)
+    VFS -> Driver : drivesense_read()
+    Driver --> Worker : ds_sensor_data
+    Worker -> Mgr : evaluate(data)
+    opt Threshold Exceeded
+        Mgr --> Worker : Alert
+        Worker -> Log : log(Alert)
+    end
+    Worker -> App : update shared data (mutex)
+end
+
+loop Render Loop (~20 Hz)
+    App -> UI : draw(data, alerts, stats)
+    UI -> User : Update terminal gauges
+    App -> User : getch() (non-blocking)
+    opt Key Event (e.g. '1')
+        User -> App : Key '1'
+        App -> Dev : injectFault(1)
+        Dev -> VFS : ioctl(DS_IOC_INJECT_FAULT)
+        VFS -> Driver : drivesense_ioctl()
+    end
+end
+
+User -> App : Key 'Q'
+App -> Worker : Stop & Join
+App -> UI : cleanup()
+App -> Dev : Destructor (close fd)
+Dev -> VFS : close(fd)
+VFS -> Driver : drivesense_release()
+@enduml

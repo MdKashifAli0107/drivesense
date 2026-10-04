@@ -1,0 +1,89 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class SensorData {
+    +int32_t speed_kmh
+    +int32_t fuel_pct
+    +int32_t engine_temp_c
+    +int32_t tyre_psi
+    +uint32_t state
+    +uint32_t active_fault
+    +uint64_t sequence
+    +uint64_t timestamp_ns
+    +getStateString() : string
+    +getFaultString() : string
+}
+
+class SensorDevice {
+    -int fd_
+    +SensorDevice(device_path : string)
+    +~SensorDevice()
+    +read() : SensorData
+    +start() : void
+    +stop() : void
+    +injectFault(fault_id : uint32_t) : void
+    +reset() : void
+    +getStats() : ds_stats
+}
+
+class Alert {
+    +string sensor_name
+    +string severity
+    +string message
+    +int64_t timestamp
+    +bool active
+}
+
+class AlertManager {
+    -deque<Alert> history_
+    -map<string, bool> active_state_
+    -size_t max_history_
+    +AlertManager(max_history : size_t)
+    +evaluate(data : SensorData) : vector<Alert>
+    +getHistory() : deque<Alert>
+    +hasActiveAlerts() : bool
+}
+
+class Logger {
+    -string file_path_
+    -mutex log_mutex_
+    +Logger(file_path : string)
+    +log(alert : Alert) : void
+    +flush() : void
+}
+
+class Dashboard {
+    -WINDOW* win_
+    -int rows_
+    -int cols_
+    +Dashboard()
+    +~Dashboard()
+    +init() : void
+    +draw(data : SensorData, alerts : deque<Alert>, stats : ds_stats) : void
+    +drawTooSmall() : void
+    +cleanup() : void
+}
+
+class App {
+    -SensorDevice device_
+    -AlertManager alert_mgr_
+    -Logger logger_
+    -Dashboard dashboard_
+    -atomic<bool> running_
+    -thread reader_thread_
+    -mutex data_mutex_
+    -SensorData current_data_
+    -ds_stats current_stats_
+    +App(device_path : string, log_path : string)
+    +runInteractive() : int
+    +runOnce() : int
+    +readerLoop() : void
+}
+
+App *-- SensorDevice
+App *-- AlertManager
+App *-- Logger
+App *-- Dashboard
+AlertManager *-- Alert
+SensorDevice ..> SensorData : creates
+@enduml
