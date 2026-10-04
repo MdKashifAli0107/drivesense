@@ -1,0 +1,37 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam packageStyle rectangle
+
+package "User Space Application" {
+    [Dashboard (ncurses UI)] as UI
+    [App Coordinator] as APP
+    [AlertManager] as ALERT
+    [Logger] as LOG
+    [SensorDevice (RAII)] as DEV
+    
+    APP --> DEV
+    APP --> ALERT
+    ALERT --> LOG
+    APP --> UI
+}
+
+package "Linux VFS" {
+    node "/dev/drivesense" as DEVNODE
+    node "/proc/drivesense" as PROCNODE
+}
+
+package "Linux Kernel Space" {
+    [Character Driver (drivesense.ko)] as CDEV
+    [Sensor State & Stats Buffer] as STATE
+    [Spinlock (ds_lock)] as LOCK
+    [Kernel Timer (500ms)] as TIMER
+    
+    CDEV --> STATE
+    TIMER --> LOCK
+    LOCK --> STATE
+}
+
+DEV <--> DEVNODE : read() / ioctl()
+DEVNODE <--> CDEV : file_operations
+PROCNODE <--> STATE : seq_printf
+@enduml
