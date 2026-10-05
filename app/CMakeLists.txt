@@ -28,3 +28,13 @@ set(APP_SOURCES
 
 add_executable(drivesense_app ${APP_SOURCES})
 target_link_libraries(drivesense_app PRIVATE ${CURSES_LIBRARIES} Threads::Threads)
+
+set(WEB_SOURCES
+    src/SensorData.cpp
+    src/SensorDevice.cpp
+    src/AlertManager.cpp
+    src/web_main.cpp
+)
+
+add_executable(drivesense_web ${WEB_SOURCES})
+target_link_libraries(drivesense_web PRIVATE Threads::Threads)

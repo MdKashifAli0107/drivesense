@@ -173,7 +173,36 @@ Verifies module insertion and sets `/dev/drivesense` permissions to `0666` so th
 | `R` | **Reset** | Restores all telemetry to clean baseline defaults |
 | `Q` | **Quit** | Shuts down dashboard and reader thread cleanly |
 
-### 4. Non-Interactive Command-Line Modes (CLI)
+### 4. Run in Web Browser (Live Cockpit & Digital Cluster)
+
+You can run DriveSense directly inside any modern web browser (Chrome, Edge, Firefox, Brave, Safari) on your host PC or mobile device:
+
+```bash
+./scripts/run_browser.sh
+```
+
+Then open your browser and navigate to:
+```
+http://192.168.1.3:8080
+```
+*(Or `http://localhost:8080` if browsing directly on the Ubuntu desktop)*
+
+#### Features in the Web Cockpit:
+- **Digital Cyber-Speedometer:** Real-time animated radial SVG gauge showing speed (0-200 km/h) with drive state pill (`IDLE`, `DRIVING`, `FAULT`).
+- **Engine & Fuel Diagnostic Meters:** Dynamic fuel capacity bar and engine coolant temperature thermometer with dynamic color transitions.
+- **TPMS Tyre Pressure Monitor:** 4-wheel telemetry cards (FL, FR, RL, RR) with visual warning boxes when tyre pressure drops below 26 PSI.
+- **Live Kernel Statistics:** Displays live `/proc/drivesense` counters (Syscall reads, IOCTL counts, driver timer ticks, injected faults).
+- **One-Click Fault Injection Deck:** Click interactive buttons to trigger `Overheat`, `Low Fuel`, `Flat Tyre`, `Overspeed`, `Start`, `Stop`, or `Reset` directly from your browser.
+- **Real-Time Alert Stream & Event Log:** Immediate visual alert banner and time-stamped scrolling event history.
+
+#### Alternative: Interactive Terminal in Browser (ttyd)
+To experience the native `ncurses` terminal dashboard inside a web browser:
+```bash
+./scripts/run_ttyd.sh
+```
+Then navigate to `http://192.168.1.3:8081`.
+
+### 5. Non-Interactive Command-Line Modes (CLI)
 DriveSense can be controlled programmatically without opening the visual dashboard:
 
 ```bash
