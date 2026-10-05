@@ -65,9 +65,9 @@ flowchart TD
         LOCK --> STATE
     end
 
-    DEV <-->|read() / ioctl()| DEVNODE
+    DEV <-->|"read / ioctl syscalls"| DEVNODE
     DEVNODE <--> CDEV
-    PROCNODE <-->|seq_printf()| STATE
+    PROCNODE <-->|"seq_printf diagnostics"| STATE
 ```
 
 ---
