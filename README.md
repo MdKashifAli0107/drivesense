@@ -1,4 +1,4 @@
-# ?? DriveSense ? Virtual Car Sensor Driver and Live Dashboard for Linux
+# DriveSense — Virtual Car Sensor Driver and Live Dashboard for Linux
 
 [![Linux Platform](https://img.shields.io/badge/Platform-Ubuntu%20Linux-orange.svg)](https://ubuntu.com)
 [![Kernel Subsystem](https://img.shields.io/badge/Kernel-Character%20Driver-blue.svg)](https://kernel.org)
@@ -11,20 +11,20 @@
 
 ---
 
-## ?? Executive Overview
+## Executive Overview
 
-In automotive software development, cockpit instrument clusters, electronic control units (ECUs), and telematics systems must be built and verified months before physical test vehicles or physical sensors (CAN/OBD-II/I2C/SPI transducers) are physically available. Testing critical safety edge cases?such as engine overheating, tyre blowouts, and fuel depletion?is expensive, dangerous, and difficult to reproduce on physical hardware test rigs.
+In automotive software development, cockpit instrument clusters, electronic control units (ECUs), and telematics systems must be built and verified months before physical test vehicles or physical sensors (CAN/OBD-II/I2C/SPI transducers) are physically available. Testing critical safety edge cases — such as engine overheating, tyre blowouts, and fuel depletion — is expensive, dangerous, and difficult to reproduce on physical hardware test rigs.
 
 **DriveSense** solves this by providing a virtual automotive sensor driver in Linux. Simulated vehicular dynamics evolve autonomously inside an in-kernel character device driver (`/dev/drivesense`), synchronized via atomic spinlocks and driven by a 500 ms kernel timer. A multi-threaded C++17 dashboard application consumes the telemetry, renders real-time colored gauge bars in the terminal, triggers edge-detected safety alerts, logs events to disk, and supports programmatic fault injection.
 
 ---
 
-## ? Key Features
+## Key Features
 
 - **Linux Character Device Driver (`/dev/drivesense`):** Custom kernel module with dynamic device node allocation, standard VFS file operations (`open`, `release`, `read`, `unlocked_ioctl`), and strict user/kernel memory isolation.
 - **Autonomous Physics Simulation:** Softirq kernel timer (500 ms period) dynamically models speed acceleration/deceleration, fuel consumption, engine thermodynamics, and tyre pressure fluctuations under a dedicated `spinlock_t`.
 - **Live Terminal Dashboard (`ncurses`):** Dual-threaded C++17 dashboard with visual text gauge bars, color-coded status badges (green `[ OK ]`, red `[ WARN ]`), terminal resize adaptation, and non-blocking key inputs.
-- **Edge-Triggered Safety Alarms:** Monitors threshold boundaries (Speed > 120 km/h, Fuel < 10 %, Engine Temp > 105 ?C, Tyre Pressure < 26 PSI) and suppresses duplicate alert spam while alerting on transitions.
+- **Edge-Triggered Safety Alarms:** Monitors threshold boundaries (Speed > 120 km/h, Fuel < 10 %, Engine Temp > 105 °C, Tyre Pressure < 26 PSI) and suppresses duplicate alert spam while alerting on transitions.
 - **Fault Injection & Recovery Engine:** Injects safety hazards on demand (`overheat`, `lowfuel`, `flattyre`, `overspeed`) via `ioctl` commands and keyboard shortcuts, with instant restoration to default baseline.
 - **Diagnostic Procfs Interface (`/proc/drivesense`):** Formatted text telemetry and operational statistics (`reads`, `ioctls`, `updates`, `faults_injected`, `open_count`).
 - **Comprehensive CLI Suite:** Fully scriptable headless execution (`--once`, `--start`, `--stop`, `--reset`, `--inject`, `--stats`, `--help`).
@@ -32,7 +32,7 @@ In automotive software development, cockpit instrument clusters, electronic cont
 
 ---
 
-## ??? System Architecture
+## System Architecture
 
 ```mermaid
 flowchart TD
@@ -72,60 +72,61 @@ flowchart TD
 
 ---
 
-## ?? Repository Structure
+## Repository Structure
 
 ```
 drivesense/
-??? CMakeLists.txt              # Top-level unified CMake build configuration
-??? README.md                   # Comprehensive project documentation
-??? .gitignore                  # Git ignore rules for kernel & application builds
-??? include/
-?   ??? drivesense_ioctl.h      # Shared kernel/user protocol header & ioctls
-??? driver/
-?   ??? drivesense.c            # Linux kernel character driver with softirq timer
-?   ??? Makefile                # Kbuild kernel module build script
-??? app/
-?   ??? CMakeLists.txt          # Dashboard application CMake build script
-?   ??? include/
-?   ?   ??? Alert.hpp           # Alert structure definition
-?   ?   ??? AlertManager.hpp    # Edge-triggered threshold evaluation engine
-?   ?   ??? App.hpp             # Multi-threaded coordinator & signal handler
-?   ?   ??? Dashboard.hpp       # ncurses UI terminal gauge renderer
-?   ?   ??? Logger.hpp          # Thread-safe disk-backed logging facility
-?   ?   ??? SensorData.hpp      # Telemetry conversion and helper wrappers
-?   ?   ??? SensorDevice.hpp    # RAII POSIX file descriptor wrapper
-?   ??? src/
-?       ??? AlertManager.cpp    # Alert threshold evaluation logic
-?       ??? App.cpp             # Ingestion thread loop & CLI dispatcher
-?       ??? Dashboard.cpp       # ncurses rendering and gauge calculations
-?       ??? Logger.cpp          # Timestamped log formatting
-?       ??? SensorData.cpp      # Telemetry formatting helpers
-?       ??? SensorDevice.cpp    # System call wrappers (read, ioctl)
-?       ??? main.cpp            # Application entry point
-??? tests/
-?   ??? CMakeLists.txt          # Test suite CMake configuration
-?   ??? unit_tests.cpp          # Standalone unit tests (AlertManager, Logger)
-?   ??? integration_test.cpp    # Driver integration tests (syscalls, concurrency)
-??? scripts/
-?   ??? build_all.sh            # One-step compilation of driver, app, and tests
-?   ??? load.sh                 # Driver loader with automatic permissions setup
-?   ??? unload.sh               # Driver unloader with dmesg verification
-?   ??? run_all_tests.sh        # Master automated test runner (100% pass)
-?   ??? stress_load_unload.sh   # 20x driver stress test verifying 0 leaks
-??? docs/
-    ??? 01_introduction.md      # Project introduction and problem definition
-    ??? 02_PRD.md               # Product requirements document (FR1-9, NFR1-6)
-    ??? 03_design.md            # System architecture, data design, and UML
-    ??? 04_progress_log.md      # Engineering progress log and issue resolutions
-    ??? 05_testing.md           # Verification report with real test results
-    ??? 06_final_report.md      # Final capstone report
-    ??? presentation.md         # 10-slide deck and 12 technical interview Q&As
-    ??? diagrams/               # PlantUML diagrams (architecture, class, sequence, state)
+|-- CMakeLists.txt              # Top-level unified CMake build configuration
+|-- README.md                   # Comprehensive project documentation
+|-- .gitignore                  # Git ignore rules for kernel & application builds
+|-- include/
+|   └── drivesense_ioctl.h      # Shared kernel/user protocol header & ioctls
+|-- driver/
+|   |-- drivesense.c            # Linux kernel character driver with softirq timer
+|   └── Makefile                # Kbuild kernel module build script
+|-- app/
+|   |-- CMakeLists.txt          # Dashboard application CMake build script
+|   |-- include/
+|   |   |-- Alert.hpp           # Alert structure definition
+|   |   |-- AlertManager.hpp    # Edge-triggered threshold evaluation engine
+|   |   |-- App.hpp             # Multi-threaded coordinator & signal handler
+|   |   |-- Dashboard.hpp       # ncurses UI terminal gauge renderer
+|   |   |-- Logger.hpp          # Thread-safe disk-backed logging facility
+|   |   |-- SensorData.hpp      # Telemetry conversion and helper wrappers
+|   |   └── SensorDevice.hpp    # RAII POSIX file descriptor wrapper
+|   └── src/
+|       |-- AlertManager.cpp    # Alert threshold evaluation logic
+|       |-- App.cpp             # Ingestion thread loop & CLI dispatcher
+|       |-- Dashboard.cpp       # ncurses rendering and gauge calculations
+|       |-- Logger.cpp          # Timestamped log formatting
+|       |-- SensorData.cpp      # Telemetry formatting helpers
+|       |-- SensorDevice.cpp    # System call wrappers (read, ioctl)
+|       └── main.cpp            # Application entry point
+|-- tests/
+|   |-- CMakeLists.txt          # Test suite CMake configuration
+|   |-- unit_tests.cpp          # Standalone unit tests (AlertManager, Logger)
+|   └── integration_test.cpp    # Driver integration tests (syscalls, concurrency)
+|-- scripts/
+|   |-- build_all.sh            # One-step compilation of driver, app, and tests
+|   |-- load.sh                 # Driver loader with automatic permissions setup
+|   |-- unload.sh               # Driver unloader with dmesg verification
+|   |-- run_all_tests.sh        # Master automated test runner (100% pass)
+|   |-- stress_load_unload.sh   # 20x driver stress test verifying 0 leaks
+|   └── push_phases.sh          # Phase-by-phase push helper script
+└── docs/
+    |-- 01_introduction.md      # Project introduction and problem definition
+    |-- 02_PRD.md               # Product requirements document (FR1-9, NFR1-6)
+    |-- 03_design.md            # System architecture, data design, and UML
+    |-- 04_progress_log.md      # Engineering progress log and issue resolutions
+    |-- 05_testing.md           # Verification report with real test results
+    |-- 06_final_report.md      # Final capstone report
+    |-- presentation.md         # 10-slide deck and 12 technical interview Q&As
+    └── diagrams/               # PlantUML diagrams (architecture, class, sequence, state)
 ```
 
 ---
 
-## ?? System Requirements
+## System Requirements
 
 - **Operating System:** Linux (tested on Ubuntu 24.04 LTS / Linux kernel `7.0.0-38-generic` / `6.8+`)
 - **Compilers:** GCC & G++ 13+ (`-std=c++17`)
@@ -141,7 +142,7 @@ sudo apt-get install -y build-essential linux-headers-$(uname -r) cmake git libn
 
 ---
 
-## ?? Build and Run Instructions
+## Build and Run Instructions
 
 ### 1. Build Everything
 ```bash
@@ -165,8 +166,8 @@ Verifies module insertion and sets `/dev/drivesense` permissions to `0666` so th
 | :--- | :--- | :--- |
 | `S` | **Start** | Transitions car to `DRIVING` mode (speed and fuel evolve) |
 | `P` | **Stop** | Transitions car to `IDLE` mode (speed decelerates to 0) |
-| `1` | **Fault: Overheat** | Forces engine temperature to climb toward ~118 ?C |
-| `2` | **Fault: Low Fuel** | Forces fuel level to drop to critical reserve (? 8 %) |
+| `1` | **Fault: Overheat** | Forces engine temperature to climb toward ~118 °C |
+| `2` | **Fault: Low Fuel** | Forces fuel level to drop to critical reserve (≤ 8 %) |
 | `3` | **Fault: Flat Tyre** | Deflates tyre pressure toward ~18 PSI |
 | `4` | **Fault: Overspeed** | Accelerates vehicle past speed limit toward ~140 km/h |
 | `R` | **Reset** | Restores all telemetry to clean baseline defaults |
@@ -203,7 +204,7 @@ sudo ./scripts/unload.sh
 
 ---
 
-## ?? Live Sample Outputs (Captured from this Machine)
+## Live Sample Outputs (Captured from this Machine)
 
 ### Sample Output: Headless Snapshot (`./build/drivesense_app --once`)
 ```
@@ -251,7 +252,7 @@ DriveSense Application Error: Device /dev/drivesense not found or inaccessible. 
 
 ---
 
-## ?? Testing and Quality Assurance
+## Testing and Quality Assurance
 
 DriveSense includes a master automated test harness running unit tests, integration tests, stress cycles, static analysis, and memory leak profiling:
 
@@ -269,7 +270,7 @@ DriveSense includes a master automated test harness running unit tests, integrat
 
 ---
 
-## ?? Systems Engineering Concepts Demonstrated
+## Systems Engineering Concepts Demonstrated
 
 1. **Linux Kernel Module Architecture:** Module initialization (`module_init`), teardown (`module_exit`), dynamic major/minor number registration (`alloc_chrdev_region`), device class registration (`class_create`), and device node generation (`device_create`).
 2. **Virtual File System (VFS) Abstraction:** Implementing `struct file_operations` (`open`, `release`, `read`, `unlocked_ioctl`) and linking file descriptors to in-kernel drivers.
@@ -284,7 +285,7 @@ DriveSense includes a master automated test harness running unit tests, integrat
 
 ---
 
-## ?? Limitations & Future Work
+## Limitations & Future Work
 
 ### Limitations:
 - **Telemetry Simulation:** Sensor physics are modeled numerically via integer mathematics rather than rigid multi-body vehicle aerodynamic physics engines.
@@ -298,7 +299,7 @@ DriveSense includes a master automated test harness running unit tests, integrat
 
 ---
 
-## ?? Author & Acknowledgments
+## Author & Acknowledgments
 
 - **Project Lead:** Shail
 - **Institution:** Capstone Engineering Project

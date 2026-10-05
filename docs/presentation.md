@@ -1,11 +1,11 @@
-# DriveSense ? Capstone Project Presentation Deck & Technical Interview Guide
+# DriveSense — Capstone Project Presentation Deck & Technical Interview Guide
 
 ---
 
-## ??? Slide Deck Outline & Speaker Notes
+## Slide Deck Outline & Speaker Notes
 
 ### Slide 1: Title & Overview
-- **Title:** DriveSense ? A Virtual Car Sensor Driver & Live Dashboard for Linux
+- **Title:** DriveSense — A Virtual Car Sensor Driver & Live Dashboard for Linux
 - **Subtitle:** Bridging Embedded Automotive Telemetry and Linux Systems Programming
 - **Presenter:** Shail
 - **Speaker Notes:**
@@ -116,7 +116,7 @@
 
 ---
 
-## ?? Likely Technical Interview Questions & Answers
+## Likely Technical Interview Questions & Answers
 
 ### 1. What is a character device driver in Linux, and how does it differ from a block driver?
 > **Answer:** A character device driver transfers data as a continuous stream of unbuffered bytes (character by character or in byte buffers) directly between user space and the driver, without using the Linux buffer cache. Examples include serial ports, sensors, and virtual devices like `/dev/null` or `/dev/drivesense`. In contrast, a block device driver transfers data in fixed-size blocks (e.g., 512 bytes or 4 KB) through the kernel's page cache and I/O scheduler, designed specifically for random-access persistent storage devices like hard drives and SSDs.
