@@ -51,35 +51,40 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-base: #06090e;
-      --bg-gradient: radial-gradient(circle at 50% 0%, #111a2e 0%, #06090e 75%);
-      --card-bg: rgba(13, 19, 32, 0.82);
-      --card-elevated: rgba(18, 27, 46, 0.95);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-border-light: rgba(255, 255, 255, 0.14);
-      --card-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      /* Matte Obsidian & Luxury Graphite Surfaces */
+      --bg-base: #090b0f;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #11141c 0%, #090b0f 85%);
+      --card-bg: rgba(14, 18, 25, 0.72);
+      --card-elevated: rgba(19, 24, 34, 0.85);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --card-border-light: rgba(255, 255, 255, 0.09);
+      --card-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
-      --cobalt: #38bdf8;
-      --cobalt-deep: #0284c7;
-      --cobalt-glow: rgba(56, 189, 248, 0.28);
-      --cobalt-subtle: rgba(56, 189, 248, 0.08);
+      /* Refined, Subtle Automotive Accents (No harsh neon) */
+      --accent-ice: #93c5fd;
+      --accent-slate: #64748b;
+      --accent-steel: #475569;
+      --accent-subtle: rgba(147, 197, 253, 0.05);
 
-      --emerald: #10b981;
-      --emerald-glow: rgba(16, 185, 129, 0.3);
-      --emerald-subtle: rgba(16, 185, 129, 0.1);
+      /* Semantic Status - Controlled, Muted & Matte */
+      --status-sage: #6ee7b7;
+      --status-sage-bg: rgba(110, 231, 183, 0.07);
+      --status-sage-border: rgba(110, 231, 183, 0.2);
 
-      --amber: #f59e0b;
-      --amber-glow: rgba(245, 158, 11, 0.3);
-      --amber-subtle: rgba(245, 158, 11, 0.1);
+      --status-ochre: #fbbf24;
+      --status-ochre-bg: rgba(251, 191, 36, 0.07);
+      --status-ochre-border: rgba(251, 191, 36, 0.2);
 
-      --crimson: #ef4444;
-      --crimson-glow: rgba(239, 68, 68, 0.4);
-      --crimson-subtle: rgba(239, 68, 68, 0.12);
+      --status-rose: #f87171;
+      --status-rose-bg: rgba(248, 113, 113, 0.08);
+      --status-rose-border: rgba(248, 113, 113, 0.25);
 
-      --text-main: #f8fafc;
+      /* Restrained Neutral Typography */
+      --text-main: #f1f5f9;
+      --text-secondary: #cbd5e1;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
-      --text-dark: #334155;
+      --text-faint: #334155;
 
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
@@ -101,14 +106,15 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       -webkit-font-smoothing: antialiased;
     }
 
+    /* Architectural hairline grid */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-      background-size: 40px 40px;
+        linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+      background-size: 48px 48px;
       pointer-events: none;
       z-index: 0;
     }
@@ -121,100 +127,99 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
     }
 
-    /* TOP COCKPIT HUD */
+    /* =========================================================
+       TOP COCKPIT HUD
+       ========================================================= */
     .cockpit-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--card-border);
-      box-shadow: var(--card-inner-glow), 0 12px 32px rgba(0, 0, 0, 0.5);
-      border-radius: 16px;
-      padding: 12px 24px;
+      box-shadow: var(--card-inner-glow), 0 8px 24px rgba(0, 0, 0, 0.35);
+      border-radius: 14px;
+      padding: 12px 22px;
     }
 
     .brand-section {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .brand-emblem {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--card-border-light);
-      border-radius: 10px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
     }
-    .brand-emblem svg { width: 22px; height: 22px; fill: var(--cobalt); }
+    .brand-emblem svg { width: 18px; height: 18px; fill: var(--text-secondary); }
 
     .brand-meta h1 {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 2px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
       color: #ffffff;
       line-height: 1.1;
     }
     .brand-meta .badge-arch {
       font-family: var(--font-mono);
       font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: var(--text-dim);
       text-transform: uppercase;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .badge-arch span.kernel-tag {
-      color: var(--cobalt);
-      background: var(--cobalt-subtle);
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.04);
       padding: 1px 6px;
       border-radius: 4px;
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    /* Gear Selector PRND */
+    /* Gear Selector PRND - Sleek Minimalist */
     .gear-cluster {
       display: flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 4px 8px;
-      border-radius: 10px;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 3px 6px;
+      border-radius: 8px;
       border: 1px solid var(--card-border);
     }
     .gear-btn {
       font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 14px;
-      padding: 6px 14px;
-      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 5px 12px;
+      border-radius: 5px;
       color: var(--text-dim);
       background: transparent;
-      border: none;
-      transition: all 0.25s ease;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
     }
     .gear-btn.active {
       color: #ffffff;
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.3), rgba(2, 132, 199, 0.5));
-      border: 1px solid var(--cobalt);
-      box-shadow: 0 0 14px var(--cobalt-glow);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
     }
     .gear-btn.active-fault {
-      color: #ffffff;
-      background: linear-gradient(180deg, rgba(239, 68, 68, 0.3), rgba(185, 28, 28, 0.5));
-      border: 1px solid var(--crimson);
-      box-shadow: 0 0 14px var(--crimson-glow);
+      color: #fca5a5;
+      background: var(--status-rose-bg);
+      border-color: var(--status-rose-border);
     }
 
     /* Header Right Metrics */
@@ -229,7 +234,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       align-items: flex-end;
     }
     .vital-label {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -237,37 +242,31 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       font-family: var(--font-mono);
     }
     .vital-val {
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 600;
       font-family: var(--font-mono);
-      color: var(--text-main);
+      color: var(--text-secondary);
       display: flex;
       align-items: center;
       gap: 6px;
     }
     .pulse-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: var(--emerald);
-      box-shadow: 0 0 10px var(--emerald);
-      animation: pulse 1.8s infinite;
+      background: var(--status-sage);
+      opacity: 0.85;
     }
     .pulse-dot.danger {
-      background: var(--crimson);
-      box-shadow: 0 0 10px var(--crimson);
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.25); }
+      background: var(--status-rose);
     }
 
     .audio-toggle-btn {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--card-border);
       color: var(--text-muted);
-      border-radius: 8px;
-      padding: 7px 10px;
+      border-radius: 6px;
+      padding: 6px 9px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -277,86 +276,87 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       transition: all 0.2s ease;
     }
     .audio-toggle-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.07);
       color: #fff;
     }
     .audio-toggle-btn.on {
-      color: var(--cobalt);
-      border-color: rgba(56, 189, 248, 0.4);
-      background: var(--cobalt-subtle);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
     }
 
-    /* CRITICAL ALERT BANNER */
+    /* =========================================================
+       SUBTLE ALERT BANNER (No blinding neon)
+       ========================================================= */
     .alert-strip {
       display: none;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 600;
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid var(--crimson);
-      box-shadow: 0 0 25px var(--crimson-glow);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      background: rgba(28, 18, 20, 0.85);
+      border: 1px solid var(--status-rose-border);
       backdrop-filter: blur(10px);
-      animation: alertSlide 0.3s ease-out;
+      animation: alertSlide 0.25s ease-out;
     }
     .alert-strip.show { display: flex; }
     .alert-strip.warn {
-      background: rgba(245, 158, 11, 0.15);
-      border-color: var(--amber);
-      box-shadow: 0 0 25px var(--amber-glow);
+      background: rgba(28, 24, 18, 0.85);
+      border-color: var(--status-ochre-border);
     }
     @keyframes alertSlide {
-      from { transform: translateY(-8px); opacity: 0; }
+      from { transform: translateY(-6px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
     .alert-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .alert-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--crimson);
-      color: #fff;
-      font-weight: 900;
+      background: rgba(248, 113, 113, 0.15);
+      color: var(--status-rose);
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--status-rose-border);
     }
     .alert-strip.warn .alert-icon {
-      background: var(--amber);
-    }
-    .alert-actions {
-      display: flex;
-      gap: 10px;
+      background: rgba(251, 191, 36, 0.15);
+      color: var(--status-ochre);
+      border-color: var(--status-ochre-border);
     }
     .btn-quick-reset {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-size: 11px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-main);
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 10px;
       font-family: var(--font-mono);
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
       text-transform: uppercase;
       transition: all 0.2s;
     }
     .btn-quick-reset:hover {
-      background: #fff;
-      color: #000;
+      background: rgba(255, 255, 255, 0.14);
     }
 
-    /* INSTRUMENT CLUSTER GRID */
+    /* =========================================================
+       INSTRUMENT CLUSTER GRID
+       ========================================================= */
     .cluster-grid {
       display: grid;
-      grid-template-columns: 340px 1fr 340px;
-      gap: 18px;
+      grid-template-columns: 320px 1fr 320px;
+      gap: 16px;
       align-items: stretch;
     }
     @media (max-width: 1150px) {
@@ -365,112 +365,99 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
 
     .panel {
       background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--card-border);
-      box-shadow: var(--card-inner-glow), 0 16px 36px rgba(0, 0, 0, 0.4);
-      border-radius: 18px;
-      padding: 22px;
+      box-shadow: var(--card-inner-glow), 0 10px 28px rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       position: relative;
-      overflow: hidden;
     }
-    .panel::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
-    }
-
     .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     }
     .panel-title {
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.8px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text-muted);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
-    .panel-title svg { width: 14px; height: 14px; fill: var(--cobalt); }
+    .panel-title svg { width: 13px; height: 13px; fill: var(--text-dim); }
     .panel-tag {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-dim);
     }
 
     /* LEFT WING: POWERTRAIN & THERMAL */
     .gauge-block {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 14px;
-      position: relative;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
     }
     .gauge-block-top {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .gauge-name {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 500;
       color: var(--text-muted);
       letter-spacing: 0.5px;
     }
     .gauge-val-big {
       font-family: var(--font-mono);
-      font-size: 24px;
-      font-weight: 800;
-      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-main);
     }
     .gauge-val-big small {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 500;
       color: var(--text-dim);
       margin-left: 2px;
     }
 
     .linear-bar-wrap {
       width: 100%;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
       overflow: hidden;
-      position: relative;
     }
     .linear-bar-fill {
       height: 100%;
       width: 0%;
-      border-radius: 8px;
-      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+      border-radius: 6px;
+      transition: width 0.3s ease, background-color 0.3s ease;
     }
     .fill-fuel-nom {
-      background: linear-gradient(90deg, var(--cobalt-deep), var(--emerald));
-      box-shadow: 0 0 10px var(--emerald-glow);
+      background: #6ee7b7;
+      opacity: 0.85;
     }
     .fill-fuel-low {
-      background: linear-gradient(90deg, var(--crimson), var(--amber));
-      box-shadow: 0 0 12px var(--crimson-glow);
+      background: #f87171;
     }
     .fill-temp-nom {
-      background: linear-gradient(90deg, var(--cobalt), var(--emerald));
+      background: #94a3b8;
     }
     .fill-temp-hot {
-      background: linear-gradient(90deg, var(--amber), var(--crimson));
-      box-shadow: 0 0 12px var(--crimson-glow);
+      background: #f87171;
     }
 
     .gauge-footer-meta {
@@ -479,81 +466,82 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       align-items: center;
       margin-top: 8px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-dim);
     }
 
     /* Subsystem Stats Table */
     .kernel-stats-card {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.03);
       border-radius: 12px;
-      padding: 14px;
+      padding: 12px;
       margin-top: auto;
     }
     .kernel-stats-title {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
       color: var(--text-dim);
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
     }
     .kernel-stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
     }
     .stat-box {
       display: flex;
       flex-direction: column;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      padding: 8px 10px;
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 6px 8px;
+      border-radius: 6px;
     }
     .stat-box .k-label {
-      font-size: 9px;
+      font-size: 8.5px;
       color: var(--text-dim);
       font-family: var(--font-mono);
       text-transform: uppercase;
     }
     .stat-box .k-num {
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 600;
       font-family: var(--font-mono);
-      color: var(--cobalt);
+      color: var(--text-secondary);
     }
 
-    /* CENTER WING: PANORAMIC SPEEDOMETER */
+    /* =========================================================
+       CENTER WING: SPEEDOMETER & DRIVE DYNAMICS
+       ========================================================= */
     .speedo-panel {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       position: relative;
-      padding: 24px;
+      padding: 22px;
     }
 
     .speedo-stage {
       position: relative;
-      width: 380px;
-      height: 380px;
+      width: 360px;
+      height: 360px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     @media (max-width: 440px) {
-      .speedo-stage { width: 300px; height: 300px; }
+      .speedo-stage { width: 290px; height: 290px; }
     }
 
     .speedo-svg {
       width: 100%;
       height: 100%;
       transform: rotate(0deg);
-      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
     }
 
     .speedo-center {
@@ -568,58 +556,49 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
 
     .speedo-display-val {
       font-family: var(--font-mono);
-      font-size: 92px;
-      font-weight: 800;
+      font-size: 88px;
+      font-weight: 700;
       line-height: 0.9;
       color: #ffffff;
       letter-spacing: -2px;
-      text-shadow: 0 0 40px rgba(56, 189, 248, 0.35);
       transition: color 0.25s ease;
     }
     .speedo-display-val.over-limit {
-      color: #ff4d6d;
-      text-shadow: 0 0 40px rgba(255, 77, 109, 0.6);
+      color: var(--status-rose);
     }
     .speedo-unit {
       font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 4px;
-      color: var(--cobalt);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--text-muted);
       margin-top: 6px;
       text-transform: uppercase;
     }
 
     .drive-mode-pill {
-      margin-top: 14px;
-      padding: 6px 18px;
-      border-radius: 24px;
+      margin-top: 12px;
+      padding: 5px 16px;
+      border-radius: 20px;
       font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--text-muted);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-dim);
+      transition: all 0.25s ease;
     }
     .drive-mode-pill.mode-DRIVING {
-      background: rgba(56, 189, 248, 0.12);
-      border-color: var(--cobalt);
-      color: var(--cobalt);
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
     }
     .drive-mode-pill.mode-FAULT {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: var(--crimson);
-      color: var(--crimson);
-      box-shadow: 0 0 20px var(--crimson-glow);
-      animation: alertPulse 1.2s infinite;
-    }
-    @keyframes alertPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+      background: var(--status-rose-bg);
+      border-color: var(--status-rose-border);
+      color: #fca5a5;
     }
 
     .speedo-bottom-telemetry {
@@ -627,11 +606,11 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       display: flex;
       justify-content: space-around;
       align-items: center;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 10px 16px;
-      margin-top: 16px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 9px 14px;
+      margin-top: 14px;
     }
     .tele-cell {
       display: flex;
@@ -639,127 +618,128 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       align-items: center;
     }
     .tele-cell .t-lbl {
-      font-size: 9px;
+      font-size: 8.5px;
       font-family: var(--font-mono);
       letter-spacing: 1px;
       color: var(--text-dim);
       text-transform: uppercase;
     }
     .tele-cell .t-val {
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 600;
       font-family: var(--font-mono);
-      color: #fff;
+      color: var(--text-secondary);
     }
 
-    /* RIGHT WING: CHASSIS & TPMS */
+    /* =========================================================
+       RIGHT WING: CHASSIS & TPMS
+       ========================================================= */
     .tpms-chassis-stage {
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      margin: 10px 0;
-      min-height: 220px;
+      margin: 8px 0;
+      min-height: 200px;
     }
     .car-silhouette {
-      width: 130px;
-      opacity: 0.85;
-      filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.15));
+      width: 120px;
+      opacity: 0.75;
     }
 
     .tpms-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }
     .wheel-card {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
-      padding: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      transition: all 0.3s ease;
-      position: relative;
+      transition: all 0.25s ease;
     }
     .wheel-card.punctured {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: var(--crimson);
-      box-shadow: 0 0 20px var(--crimson-glow);
+      background: var(--status-rose-bg);
+      border-color: var(--status-rose-border);
     }
     .wheel-pos {
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 9px;
+      font-weight: 600;
       font-family: var(--font-mono);
       color: var(--text-dim);
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
     }
     .wheel-psi {
       font-family: var(--font-mono);
-      font-size: 20px;
-      font-weight: 800;
-      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
       margin: 2px 0;
     }
     .wheel-card.punctured .wheel-psi {
-      color: var(--crimson);
+      color: var(--status-rose);
     }
     .wheel-status {
-      font-size: 9px;
-      font-weight: 700;
+      font-size: 8.5px;
+      font-weight: 600;
       font-family: var(--font-mono);
-      letter-spacing: 1px;
-      color: var(--emerald);
+      letter-spacing: 0.8px;
+      color: var(--status-sage);
       text-transform: uppercase;
     }
     .wheel-card.punctured .wheel-status {
-      color: var(--crimson);
+      color: var(--status-rose);
     }
 
     .chassis-health-bar {
       margin-top: auto;
-      padding: 12px;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 12px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
     .chassis-row {
       display: flex;
       justify-content: space-between;
-      font-size: 11px;
+      font-size: 10px;
       font-family: var(--font-mono);
-      color: var(--text-muted);
+      color: var(--text-dim);
     }
     .chassis-badge {
-      font-weight: 700;
-      color: var(--emerald);
+      font-weight: 600;
+      color: var(--text-secondary);
     }
 
-    /* BOTTOM DECK: SWITCHBOARD & BLACK-BOX RECORDER */
+    /* =========================================================
+       BOTTOM DECK: SWITCHBOARD & BLACK-BOX RECORDER
+       ========================================================= */
     .deck-grid {
       display: grid;
       grid-template-columns: 1.25fr 1fr;
-      gap: 18px;
+      gap: 16px;
     }
     @media (max-width: 950px) {
       .deck-grid { grid-template-columns: 1fr; }
     }
 
     .switchboard-section-title {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.8px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text-dim);
       font-family: var(--font-mono);
       margin-bottom: 8px;
-      margin-top: 4px;
+      margin-top: 2px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -769,130 +749,110 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     @media (max-width: 600px) {
       .btn-row { grid-template-columns: 1fr; }
     }
 
     .cockpit-btn {
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid transparent;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: 6px;
+      transition: all 0.2s ease;
       text-transform: uppercase;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      position: relative;
-      overflow: hidden;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
     }
     .cockpit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
     }
     .cockpit-btn:active {
       transform: translateY(1px);
     }
     .cockpit-btn .k-badge {
       font-family: var(--font-mono);
-      font-size: 9px;
-      padding: 1px 5px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
+      font-size: 8.5px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
     }
 
     .btn-drive-start {
-      background: linear-gradient(135deg, #059669, #10b981);
-      color: #ffffff;
-      border-color: rgba(16, 185, 129, 0.4);
-      box-shadow: 0 4px 16px var(--emerald-glow);
+      border-left: 3px solid var(--status-sage);
     }
-    .btn-drive-start:hover {
-      background: linear-gradient(135deg, #047857, #059669);
-    }
-
     .btn-drive-stop {
-      background: rgba(255, 255, 255, 0.06);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-left: 3px solid var(--text-dim);
     }
-    .btn-drive-stop:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
     .btn-drive-reset {
-      background: linear-gradient(135deg, var(--cobalt-deep), #0369a1);
-      color: #ffffff;
-      border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 4px 16px var(--cobalt-glow);
-    }
-    .btn-drive-reset:hover {
-      background: linear-gradient(135deg, #0369a1, #075985);
+      border-left: 3px solid var(--accent-ice);
     }
 
-    /* Fault Injection Switches */
+    /* Fault Injection Switches - Subdued Matte */
     .fault-matrix {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
     @media (max-width: 700px) {
       .fault-matrix { grid-template-columns: repeat(2, 1fr); }
     }
 
     .btn-fault-switch {
-      background: rgba(239, 68, 68, 0.08);
-      border: 1px solid rgba(239, 68, 68, 0.25);
-      color: #fca5a5;
-      padding: 10px 10px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 700;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      padding: 8px 8px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 600;
       letter-spacing: 0.5px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       transition: all 0.2s;
     }
     .btn-fault-switch:hover {
-      background: var(--crimson);
-      color: #fff;
-      box-shadow: 0 4px 18px var(--crimson-glow);
-      transform: translateY(-2px);
+      background: rgba(248, 113, 113, 0.1);
+      border-color: var(--status-rose-border);
+      color: #fca5a5;
+      transform: translateY(-1px);
     }
     .btn-fault-switch:active {
       transform: translateY(1px);
     }
     .btn-fault-switch .sub-text {
-      font-size: 9px;
+      font-size: 8.5px;
       font-family: var(--font-mono);
-      opacity: 0.8;
+      color: var(--text-dim);
     }
 
-    /* Real-Time Sparkline Canvas */
+    /* Telemetry Sparkline Canvas */
     .sparkline-box {
-      margin-top: 16px;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 12px 14px;
+      margin-top: 14px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 10px 12px;
     }
     .sparkline-header {
       display: flex;
       justify-content: space-between;
-      font-size: 10px;
+      font-size: 9px;
       font-family: var(--font-mono);
       color: var(--text-dim);
       margin-bottom: 6px;
@@ -900,7 +860,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
     }
     .sparkline-legend {
       display: flex;
-      gap: 12px;
+      gap: 10px;
     }
     .spark-leg-item {
       display: flex;
@@ -908,15 +868,15 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       gap: 4px;
     }
     .spark-leg-dot {
-      width: 6px; height: 6px; border-radius: 50%;
+      width: 5px; height: 5px; border-radius: 50%;
     }
     canvas#telemetryChart {
       width: 100%;
-      height: 75px;
+      height: 65px;
       display: block;
     }
 
-    /* Black-Box Telemetry Event Recorder */
+    /* Event Recorder Stream */
     .recorder-panel {
       display: flex;
       flex-direction: column;
@@ -927,87 +887,87 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       gap: 8px;
     }
     .btn-recorder-tool {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--card-border);
-      color: var(--text-muted);
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 10px;
+      color: var(--text-dim);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 9.5px;
       font-family: var(--font-mono);
       cursor: pointer;
       transition: all 0.2s;
     }
     .btn-recorder-tool:hover {
-      background: rgba(255, 255, 255, 0.12);
-      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
     }
 
     .log-stream {
       flex: 1;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
-      padding: 12px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 10px;
       font-family: var(--font-mono);
-      font-size: 11px;
-      height: 250px;
+      font-size: 10.5px;
+      height: 240px;
       overflow-y: auto;
       display: flex;
       flex-direction: column-reverse;
-      gap: 6px;
+      gap: 5px;
     }
     .log-row {
       display: flex;
       align-items: baseline;
       gap: 8px;
-      line-height: 1.4;
-      padding-bottom: 4px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      line-height: 1.35;
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.02);
     }
     .log-row-time {
       color: var(--text-dim);
-      font-size: 10px;
+      font-size: 9.5px;
       white-space: nowrap;
     }
     .log-badge {
-      font-size: 9px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 4px;
+      font-size: 8.5px;
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 3px;
       text-transform: uppercase;
       white-space: nowrap;
     }
     .log-badge.CRITICAL {
-      background: var(--crimson-subtle);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
+      background: var(--status-rose-bg);
+      color: #fca5a5;
+      border: 1px solid var(--status-rose-border);
     }
     .log-badge.WARNING {
-      background: var(--amber-subtle);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
+      background: var(--status-ochre-bg);
+      color: #fde68a;
+      border: 1px solid var(--status-ochre-border);
     }
     .log-badge.INFO {
-      background: var(--cobalt-subtle);
-      color: var(--cobalt);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .log-row-msg {
-      color: var(--text-main);
+      color: var(--text-secondary);
       word-break: break-word;
     }
 
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
-    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
   </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- TOP COCKPIT HUD & NAV -->
+  <!-- TOP COCKPIT HUD -->
   <header class="cockpit-header">
     <div class="brand-section">
       <div class="brand-emblem">
@@ -1046,20 +1006,20 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
         <span class="vital-label">BUS TICKER</span>
         <span class="vital-val" id="busTickerVal">100 HZ</span>
       </div>
-      <button class="audio-toggle-btn" id="audioToggle" onclick="toggleAudio()" title="Toggle Cockpit Audio Chimes">
+      <button class="audio-toggle-btn" id="audioToggle" onclick="toggleAudio()" title="Toggle Audio Chimes">
         <span id="audioIcon">&#128263;</span>
         <span id="audioText">MUTED</span>
       </button>
     </div>
   </header>
 
-  <!-- CRITICAL ALERT STRIP -->
+  <!-- SUBTLE ALERT STRIP -->
   <div class="alert-strip" id="alertStrip">
     <div class="alert-left">
       <div class="alert-icon">!</div>
       <div>
-        <div style="font-weight: 700; letter-spacing: 0.5px;" id="alertTitle">CRITICAL KERNEL INTERRUPT</div>
-        <div style="font-size: 11px; opacity: 0.85; font-family: var(--font-mono);" id="alertDesc">Telemetry out of safe operational thresholds.</div>
+        <div style="font-weight: 600; letter-spacing: 0.3px;" id="alertTitle">CRITICAL KERNEL INTERRUPT</div>
+        <div style="font-size: 11px; opacity: 0.8; font-family: var(--font-mono);" id="alertDesc">Telemetry out of safe operational thresholds.</div>
       </div>
     </div>
     <div class="alert-actions">
@@ -1090,7 +1050,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
           <div class="linear-bar-fill fill-fuel-nom" id="fuelBar"></div>
         </div>
         <div class="gauge-footer-meta">
-          <span>RESERVE: <span id="fuelReserveTag" style="color: var(--emerald);">NOMINAL</span></span>
+          <span>RESERVE: <span id="fuelReserveTag" style="color: var(--text-secondary);">NOMINAL</span></span>
           <span>EST. RANGE: <span id="fuelRangeTag">-- KM</span></span>
         </div>
       </div>
@@ -1106,11 +1066,11 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
         </div>
         <div class="gauge-footer-meta">
           <span>OPTIMAL: 85&ndash;95 &deg;C</span>
-          <span id="tempStateTag" style="color: var(--emerald);">NORMAL</span>
+          <span id="tempStateTag" style="color: var(--text-secondary);">NORMAL</span>
         </div>
       </div>
 
-      <!-- Kernel Driver Statistics Table -->
+      <!-- Kernel Statistics Table -->
       <div class="kernel-stats-card">
         <div class="kernel-stats-title">
           <span>Kernel Counters</span>
@@ -1131,68 +1091,63 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
           </div>
           <div class="stat-box">
             <span class="k-label">ACTIVE FAULTS</span>
-            <span class="k-num" id="statFaults" style="color: #fff;">0</span>
+            <span class="k-num" id="statFaults">0</span>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- CENTER WING: PANORAMIC SPEEDOMETER -->
+    <!-- CENTER WING: SPEEDOMETER -->
     <div class="panel speedo-panel">
       <div class="panel-header" style="width: 100%;">
         <div class="panel-title">
           <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 00-8 8c0 2.21.89 4.21 2.34 5.66l1.41-1.41A6 6 0 016 12a6 6 0 0111.46-2.46l1.86-.75A8 8 0 0012 4z"/></svg>
           Digital Cluster Instrument
         </div>
-        <div class="panel-tag" id="faultBadge" style="color: var(--text-dim); font-weight: 700;">FAULT: NONE</div>
+        <div class="panel-tag" id="faultBadge" style="color: var(--text-dim); font-weight: 600;">FAULT: NONE</div>
       </div>
 
       <div class="speedo-stage">
         <svg class="speedo-svg" viewBox="0 0 320 320">
           <defs>
             <linearGradient id="speedoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#38bdf8" />
-              <stop offset="65%" stop-color="#0284c7" />
-              <stop offset="100%" stop-color="#ef4444" />
+              <stop offset="0%" stop-color="#94a3b8" />
+              <stop offset="65%" stop-color="#cbd5e1" />
+              <stop offset="100%" stop-color="#f87171" />
             </linearGradient>
-            <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="6" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
           </defs>
 
           <!-- Outer tick track background -->
-          <circle cx="160" cy="160" r="132" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1" />
-          <circle cx="160" cy="160" r="102" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1" />
+          <circle cx="160" cy="160" r="132" fill="none" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1" />
+          <circle cx="160" cy="160" r="102" fill="none" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1" />
 
-          <!-- Background Gauge Arc (240 degrees: from 150 deg to 390 deg) -->
+          <!-- Background Gauge Arc -->
           <circle cx="160" cy="160" r="118" fill="none"
-                  stroke="rgba(255, 255, 255, 0.06)"
-                  stroke-width="14"
+                  stroke="rgba(255, 255, 255, 0.04)"
+                  stroke-width="10"
                   stroke-linecap="round"
                   stroke-dasharray="494.3 741.4"
                   stroke-dashoffset="0"
                   transform="rotate(150 160 160)" />
 
-          <!-- Active Velocity Arc Sweep -->
+          <!-- Active Velocity Arc Sweep (Subtle Matte) -->
           <circle id="speedArc" cx="160" cy="160" r="118" fill="none"
                   stroke="url(#speedoGrad)"
-                  stroke-width="14"
+                  stroke-width="10"
                   stroke-linecap="round"
                   stroke-dasharray="494.3 741.4"
                   stroke-dashoffset="494.3"
-                  filter="url(#glowFilter)"
                   transform="rotate(150 160 160)"
                   style="transition: stroke-dashoffset 0.3s cubic-bezier(0.2, 0, 0, 1);" />
 
           <g id="tickGroup"></g>
 
-          <!-- Rotating Velocity Needle Pointer -->
+          <!-- Precision Needle Pointer -->
           <g id="needleGroup" transform="rotate(-120 160 160)" style="transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);">
-            <line x1="160" y1="160" x2="160" y2="46" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" filter="drop-shadow(0 0 6px #38bdf8)" />
-            <circle cx="160" cy="46" r="3.5" fill="#ffffff" />
-            <circle cx="160" cy="160" r="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2" />
+            <line x1="160" y1="160" x2="160" y2="48" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" />
+            <circle cx="160" cy="48" r="2.5" fill="#ffffff" />
+            <circle cx="160" cy="160" r="6" fill="#1e2430" stroke="#94a3b8" stroke-width="1.5" />
           </g>
         </svg>
 
@@ -1210,7 +1165,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
         </div>
         <div class="tele-cell">
           <span class="t-lbl">SPEED LIMIT</span>
-          <span class="t-val" style="color: var(--amber);">120 KM/H</span>
+          <span class="t-val" style="color: var(--text-secondary);">120 KM/H</span>
         </div>
         <div class="tele-cell">
           <span class="t-lbl">AVG SPEED</span>
@@ -1226,51 +1181,51 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
           <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
           Chassis Dynamics
         </div>
-        <div class="panel-tag" id="tpmsGlobalTag" style="color: var(--emerald); font-weight: 700;">TPMS: NOMINAL</div>
+        <div class="panel-tag" id="tpmsGlobalTag" style="color: var(--text-secondary); font-weight: 600;">TPMS: NOMINAL</div>
       </div>
 
-      <!-- Top-Down Car Silhouette & Sensor Points -->
+      <!-- Top-Down Car Silhouette -->
       <div class="tpms-chassis-stage">
         <svg class="car-silhouette" viewBox="0 0 100 190">
           <defs>
             <linearGradient id="carGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#1e293b" />
-              <stop offset="100%" stop-color="#0f172a" />
+              <stop offset="0%" stop-color="#181d26" />
+              <stop offset="100%" stop-color="#0f1219" />
             </linearGradient>
           </defs>
           <path d="M28 10 C38 4, 62 4, 72 10 C82 17, 85 45, 85 70 C88 95, 88 135, 84 165 C82 180, 68 186, 50 186 C32 186, 18 180, 16 165 C12 135, 12 95, 15 70 C15 45, 18 17, 28 10 Z"
-                fill="url(#carGrad)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.8" />
+                fill="url(#carGrad)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5" />
           <path d="M26 50 C38 45, 62 45, 74 50 L70 78 C58 75, 42 75, 30 78 Z"
-                fill="rgba(56, 189, 248, 0.15)" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1" />
+                fill="rgba(255, 255, 255, 0.04)" stroke="rgba(255, 255, 255, 0.1)" stroke-width="0.8" />
           <path d="M30 125 C42 128, 58 128, 70 125 L73 145 C60 148, 40 148, 27 145 Z"
-                fill="rgba(56, 189, 248, 0.1)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1" />
-          <path d="M30 78 L70 78 L70 125 L30 125 Z" fill="none" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1" />
-          <rect id="wMeshFL" x="6" y="32" width="10" height="26" rx="4" fill="#38bdf8" opacity="0.8" />
-          <rect id="wMeshFR" x="84" y="32" width="10" height="26" rx="4" fill="#38bdf8" opacity="0.8" />
-          <rect id="wMeshRL" x="6" y="132" width="10" height="26" rx="4" fill="#38bdf8" opacity="0.8" />
-          <rect id="wMeshRR" x="84" y="132" width="10" height="26" rx="4" fill="#38bdf8" opacity="0.8" />
+                fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.8" />
+          <path d="M30 78 L70 78 L70 125 L30 125 Z" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="0.8" />
+          <rect id="wMeshFL" x="6" y="32" width="10" height="26" rx="4" fill="#64748b" opacity="0.8" />
+          <rect id="wMeshFR" x="84" y="32" width="10" height="26" rx="4" fill="#64748b" opacity="0.8" />
+          <rect id="wMeshRL" x="6" y="132" width="10" height="26" rx="4" fill="#64748b" opacity="0.8" />
+          <rect id="wMeshRR" x="84" y="132" width="10" height="26" rx="4" fill="#64748b" opacity="0.8" />
         </svg>
       </div>
 
       <div class="tpms-grid">
         <div class="wheel-card" id="cardFL">
           <span class="wheel-pos">Front Left</span>
-          <span class="wheel-psi" id="psiFL">--<small style="font-size: 11px;"> PSI</small></span>
+          <span class="wheel-psi" id="psiFL">--<small style="font-size: 10px;"> PSI</small></span>
           <span class="wheel-status" id="statFL">NOMINAL</span>
         </div>
         <div class="wheel-card" id="cardFR">
           <span class="wheel-pos">Front Right</span>
-          <span class="wheel-psi" id="psiFR">--<small style="font-size: 11px;"> PSI</small></span>
+          <span class="wheel-psi" id="psiFR">--<small style="font-size: 10px;"> PSI</small></span>
           <span class="wheel-status" id="statFR">NOMINAL</span>
         </div>
         <div class="wheel-card" id="cardRL">
           <span class="wheel-pos">Rear Left</span>
-          <span class="wheel-psi" id="psiRL">--<small style="font-size: 11px;"> PSI</small></span>
+          <span class="wheel-psi" id="psiRL">--<small style="font-size: 10px;"> PSI</small></span>
           <span class="wheel-status" id="statRL">NOMINAL</span>
         </div>
         <div class="wheel-card" id="cardRR">
           <span class="wheel-pos">Rear Right</span>
-          <span class="wheel-psi" id="psiRR">--<small style="font-size: 11px;"> PSI</small></span>
+          <span class="wheel-psi" id="psiRR">--<small style="font-size: 10px;"> PSI</small></span>
           <span class="wheel-status" id="statRR">NOMINAL</span>
         </div>
       </div>
@@ -1286,7 +1241,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
         </div>
         <div class="chassis-row">
           <span>PRESSURE THRESHOLD</span>
-          <span style="color: var(--amber);">&lt; 26.0 PSI</span>
+          <span>&lt; 26.0 PSI</span>
         </div>
       </div>
 
@@ -1310,7 +1265,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       <!-- State Transitions -->
       <div class="switchboard-section-title">
         <span>POWERTRAIN STATE TRANSITIONS</span>
-        <span style="font-size: 9px; color: var(--text-dim);">KEY SHORTCUTS [S] [P] [R]</span>
+        <span style="font-size: 8.5px; color: var(--text-dim);">KEYS [S] [P] [R]</span>
       </div>
       <div class="btn-row">
         <button class="cockpit-btn btn-drive-start" onclick="sendCmd('start')">
@@ -1329,44 +1284,44 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
 
       <!-- Fault Injection Switches -->
       <div class="switchboard-section-title">
-        <span>SAFETY FAULT INJECTION MATRIX (DS_IOC_INJECT_FAULT)</span>
-        <span style="font-size: 9px; color: var(--text-dim);">KEYS [1] [2] [3] [4]</span>
+        <span>SAFETY FAULT INJECTION (DS_IOC_INJECT_FAULT)</span>
+        <span style="font-size: 8.5px; color: var(--text-dim);">KEYS [1] [2] [3] [4]</span>
       </div>
       <div class="fault-matrix">
         <button class="btn-fault-switch" onclick="sendCmd('fault', 'overheat')">
-          <span>&#128293; OVERHEAT</span>
+          <span>OVERHEAT</span>
           <span class="sub-text">118 &deg;C [1]</span>
         </button>
         <button class="btn-fault-switch" onclick="sendCmd('fault', 'lowfuel')">
-          <span>&#9981; LOW FUEL</span>
+          <span>LOW FUEL</span>
           <span class="sub-text">8% [2]</span>
         </button>
         <button class="btn-fault-switch" onclick="sendCmd('fault', 'flattyre')">
-          <span>&#128065; FLAT TYRE</span>
+          <span>FLAT TYRE</span>
           <span class="sub-text">18 PSI [3]</span>
         </button>
         <button class="btn-fault-switch" onclick="sendCmd('fault', 'overspeed')">
-          <span>&#9889; OVERSPEED</span>
+          <span>OVERSPEED</span>
           <span class="sub-text">140 KM/H [4]</span>
         </button>
       </div>
 
-      <!-- Real-Time Telemetry Sparkline -->
+      <!-- Telemetry Sparkline -->
       <div class="sparkline-box">
         <div class="sparkline-header">
-          <span>Live Oscilloscope (Last 40s)</span>
+          <span>Telemetry Stream (Last 40s)</span>
           <div class="sparkline-legend">
             <div class="spark-leg-item">
-              <span class="spark-leg-dot" style="background: var(--cobalt);"></span>
+              <span class="spark-leg-dot" style="background: #cbd5e1;"></span>
               <span>Speed</span>
             </div>
             <div class="spark-leg-item">
-              <span class="spark-leg-dot" style="background: var(--amber);"></span>
+              <span class="spark-leg-dot" style="background: #94a3b8;"></span>
               <span>Temp</span>
             </div>
           </div>
         </div>
-        <canvas id="telemetryChart" width="500" height="75"></canvas>
+        <canvas id="telemetryChart" width="500" height="65"></canvas>
       </div>
     </div>
 
@@ -1415,7 +1370,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       btn.classList.add('on');
       icon.innerHTML = '&#128266;';
       text.innerText = 'AUDIO ON';
-      playTone(580, 0.08, 'sine');
+      playTone(520, 0.06, 'sine');
     } else {
       btn.classList.remove('on');
       icon.innerHTML = '&#128263;';
@@ -1430,7 +1385,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       const gain = audioCtx.createGain();
       osc.type = type;
       osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
@@ -1441,8 +1396,8 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
 
   function playAlertChime() {
     if (!audioEnabled || !audioCtx) return;
-    playTone(880, 0.12, 'triangle');
-    setTimeout(() => playTone(660, 0.2, 'triangle'), 140);
+    playTone(740, 0.1, 'sine');
+    setTimeout(() => playTone(580, 0.16, 'sine'), 130);
   }
 
   const MAX_SPEED = 200;
@@ -1463,7 +1418,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       const isRedline = (speed > 120);
 
       const rOuter = 132;
-      const rInner = isMajor ? 120 : 125;
+      const rInner = isMajor ? 122 : 126;
 
       const x1 = 160 + rOuter * Math.cos(angleRad);
       const y1 = 160 + rOuter * Math.sin(angleRad);
@@ -1475,20 +1430,20 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       line.setAttribute('y1', y1);
       line.setAttribute('x2', x2);
       line.setAttribute('y2', y2);
-      line.setAttribute('stroke', isRedline ? '#ef4444' : (isMajor ? '#94a3b8' : 'rgba(255,255,255,0.2)'));
-      line.setAttribute('stroke-width', isMajor ? (isRedline ? '2.5' : '2') : '1');
+      line.setAttribute('stroke', isRedline ? 'rgba(248, 113, 113, 0.6)' : (isMajor ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)'));
+      line.setAttribute('stroke-width', isMajor ? (isRedline ? '1.8' : '1.5') : '1');
       tickGroup.appendChild(line);
 
       if (isMajor) {
-        const rText = 96;
+        const rText = 98;
         const tx = 160 + rText * Math.cos(angleRad);
         const ty = 160 + rText * Math.sin(angleRad);
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('x', tx);
-        text.setAttribute('y', ty + 4);
-        text.setAttribute('fill', isRedline ? '#f87171' : '#64748b');
-        text.setAttribute('font-size', '10');
-        text.setAttribute('font-weight', '600');
+        text.setAttribute('y', ty + 3.5);
+        text.setAttribute('fill', isRedline ? 'rgba(248, 113, 113, 0.7)' : 'rgba(255, 255, 255, 0.35)');
+        text.setAttribute('font-size', '9.5');
+        text.setAttribute('font-weight', '500');
         text.setAttribute('font-family', 'JetBrains Mono, monospace');
         text.setAttribute('text-anchor', 'middle');
         text.textContent = speed;
@@ -1527,9 +1482,9 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
     const h = canvas.height;
     ctx.clearRect(0, 0, w, h);
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
     ctx.lineWidth = 1;
-    [0.25, 0.5, 0.75].forEach(ratio => {
+    [0.33, 0.66].forEach(ratio => {
       ctx.beginPath();
       ctx.moveTo(0, h * ratio);
       ctx.lineTo(w, h * ratio);
@@ -1538,9 +1493,10 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
 
     const step = w / (speedHistory.length - 1);
 
+    // Temp line in subtle muted slate
     ctx.beginPath();
-    ctx.strokeStyle = '#f59e0b';
-    ctx.lineWidth = 1.8;
+    ctx.strokeStyle = 'rgba(148, 163, 184, 0.6)';
+    ctx.lineWidth = 1.2;
     for (let i = 0; i < tempHistory.length; i++) {
       const val = tempHistory[i];
       const norm = Math.min(Math.max((val - 40) / 90, 0), 1);
@@ -1551,9 +1507,10 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
     }
     ctx.stroke();
 
+    // Speed line in clean silver
     ctx.beginPath();
-    ctx.strokeStyle = '#38bdf8';
-    ctx.lineWidth = 2.2;
+    ctx.strokeStyle = 'rgba(241, 245, 249, 0.85)';
+    ctx.lineWidth = 1.5;
     for (let i = 0; i < speedHistory.length; i++) {
       const val = speedHistory[i];
       const norm = Math.min(Math.max(val / MAX_SPEED, 0), 1);
@@ -1642,7 +1599,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       const fBadge = document.getElementById('faultBadge');
       fBadge.innerText = 'FAULT: ' + data.active_fault;
       if (data.active_fault !== 'NONE') {
-        fBadge.style.color = 'var(--crimson)';
+        fBadge.style.color = 'var(--status-rose)';
       } else {
         fBadge.style.color = 'var(--text-dim)';
       }
@@ -1656,11 +1613,11 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       if (fuelPct < 15) {
         fuelBar.className = 'linear-bar-fill fill-fuel-low';
         document.getElementById('fuelReserveTag').innerText = 'CRITICAL';
-        document.getElementById('fuelReserveTag').style.color = 'var(--crimson)';
+        document.getElementById('fuelReserveTag').style.color = 'var(--status-rose)';
       } else {
         fuelBar.className = 'linear-bar-fill fill-fuel-nom';
         document.getElementById('fuelReserveTag').innerText = 'NOMINAL';
-        document.getElementById('fuelReserveTag').style.color = 'var(--emerald)';
+        document.getElementById('fuelReserveTag').style.color = 'var(--text-secondary)';
       }
       document.getElementById('fuelRangeTag').innerText = Math.round(fuelPct * 6.5) + ' KM';
 
@@ -1673,41 +1630,41 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       if (tempC > 105) {
         tempBar.className = 'linear-bar-fill fill-temp-hot';
         tempTag.innerText = 'OVERHEATING';
-        tempTag.style.color = 'var(--crimson)';
+        tempTag.style.color = 'var(--status-rose)';
       } else if (tempC > 95) {
         tempBar.className = 'linear-bar-fill fill-temp-hot';
         tempTag.innerText = 'ELEVATED';
-        tempTag.style.color = 'var(--amber)';
+        tempTag.style.color = 'var(--status-ochre)';
       } else {
         tempBar.className = 'linear-bar-fill fill-temp-nom';
         tempTag.innerText = 'STABLE';
-        tempTag.style.color = 'var(--emerald)';
+        tempTag.style.color = 'var(--text-secondary)';
       }
 
       const psi = data.tyre_psi;
       const isFlat = (psi < 26.0);
       ['FL', 'FR', 'RL', 'RR'].forEach(id => {
-        document.getElementById('psi' + id).innerHTML = psi.toFixed(1) + '<small style="font-size: 11px;"> PSI</small>';
+        document.getElementById('psi' + id).innerHTML = psi.toFixed(1) + '<small style="font-size: 10px;"> PSI</small>';
         const card = document.getElementById('card' + id);
         const stat = document.getElementById('stat' + id);
         const mesh = document.getElementById('wMesh' + id);
         if (isFlat) {
           card.classList.add('punctured');
           stat.innerText = 'DEPRESSURIZED';
-          if (mesh) mesh.setAttribute('fill', '#ef4444');
+          if (mesh) mesh.setAttribute('fill', '#f87171');
         } else {
           card.classList.remove('punctured');
           stat.innerText = 'NOMINAL';
-          if (mesh) mesh.setAttribute('fill', '#38bdf8');
+          if (mesh) mesh.setAttribute('fill', '#64748b');
         }
       });
       const tpmsGlobal = document.getElementById('tpmsGlobalTag');
       if (isFlat) {
         tpmsGlobal.innerText = 'TPMS: LOW PRESSURE';
-        tpmsGlobal.style.color = 'var(--crimson)';
+        tpmsGlobal.style.color = 'var(--status-rose)';
       } else {
         tpmsGlobal.innerText = 'TPMS: NOMINAL';
-        tpmsGlobal.style.color = 'var(--emerald)';
+        tpmsGlobal.style.color = 'var(--text-secondary)';
       }
 
       document.getElementById('headerSeq').innerText = '#' + String(data.sequence).padStart(4, '0');
@@ -1733,11 +1690,11 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
       } else if (tempC > 105) {
         alertStrip.className = 'alert-strip show';
         alertTitle.innerText = 'ENGINE COOLANT OVERHEATING';
-        alertDesc.innerText = 'Thermal core measured ' + tempC + ' °C. Risk of catastrophic block warping.';
+        alertDesc.innerText = 'Thermal core measured ' + tempC + ' °C. Risk of block warping.';
       } else if (fuelPct < 10) {
         alertStrip.className = 'alert-strip show warn';
         alertTitle.innerText = 'LOW FUEL RESERVE';
-        alertDesc.innerText = 'Fuel reserve critically low (' + fuelPct + '%). Refuel immediately.';
+        alertDesc.innerText = 'Fuel reserve critically low (' + fuelPct + '%). Refuel soon.';
       } else if (isFlat) {
         alertStrip.className = 'alert-strip show';
         alertTitle.innerText = 'TIRE PRESSURE CRITICAL';
@@ -1782,7 +1739,7 @@ const char* INDEX_HTML = R"rawliteral(<!DOCTYPE html>
 
   async function sendCmd(action, type = '') {
     initAudio();
-    playTone(750, 0.05, 'square');
+    playTone(560, 0.04, 'sine');
     try {
       let url = '/api/control?action=' + encodeURIComponent(action);
       if (type) url += '&type=' + encodeURIComponent(type);
