@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "DriveSense: Run Web Dashboard in Browser",
+      "type": "shell",
+      "command": "./scripts/run_browser.sh",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "DriveSense: Run Terminal TUI Dashboard",
+      "type": "shell",
+      "command": "./build/drivesense_app",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "DriveSense: Run Terminal in Browser (ttyd)",
+      "type": "shell",
+      "command": "./scripts/run_ttyd.sh",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
